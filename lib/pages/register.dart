@@ -19,8 +19,12 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
-  void onTap(){
-    Navigator.push(context, const Home() as Route<Object?>);
+  void onTaping(){
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const Home(),
+      ),
+    );
   }
   @override
   Widget build(BuildContext context) {
@@ -61,7 +65,7 @@ class _RegisterState extends State<Register> {
                     hintText: "password",
                   ),
                   const SizedBox(height: 25),
-                  MyButton(onTap: onTap, text: "SignIn"),
+                  MyButton(onTap: onTaping, text: "SignIn"),
                   const SizedBox(height: 25),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

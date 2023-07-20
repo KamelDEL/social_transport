@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:social_transport/auth/auth.dart';
 // import 'package:social_transport/pages/login.dart';
 // import 'package:social_transport/pages/register.dart';
-import 'auth/log_or_reg.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: const LogOrReg(),
+      home: const AuthPage(),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),

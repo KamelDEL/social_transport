@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "23913683584",
+    "project_id": "social-transport-e10f6",
+    "storage_bucket": "social-transport-e10f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23913683584:android:21131b5336cf150b12e465",
+        "android_client_info": {
+          "package_name": "com.example.social_transport"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "23913683584-3c4od7vca64o002g8tl7g6rilqevsg11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF-PzOxghk81G4GcgZbqiTaYyKnsrKhh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "23913683584-3c4od7vca64o002g8tl7g6rilqevsg11.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "23913683584-e0u60iehi0jdj8nrm3sr06adlpund1ag.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.socialTransport"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

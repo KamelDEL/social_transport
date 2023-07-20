@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:social_transport/components/button.dart';
 import 'package:social_transport/components/text_field.dart';
 
+import 'home.dart';
+
 
 class Login extends StatefulWidget {
   final Function()? onTap;
@@ -18,6 +20,13 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
+  void onTaping() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const Home(),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +69,7 @@ class _LoginState extends State<Login> {
       
                     const SizedBox(height: 25),
       
-                    MyButton(onTap: (){}, text: "SignIn"),
+                    MyButton(onTap: onTaping, text: "SignIn"),
                     const SizedBox(height: 25),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
