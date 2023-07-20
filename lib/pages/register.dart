@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:social_transport/pages/login.dart';
 
 import '../components/button.dart';
 import '../components/text_field.dart';
@@ -62,17 +61,13 @@ class _RegisterState extends State<Register> {
                     hintText: "password",
                   ),
                   const SizedBox(height: 25),
-
                   MyButton(onTap: onTap, text: "SignIn"),
-
                   const SizedBox(height: 25),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text("Already a member? "),
-                      
                       const SizedBox(width: 5),
-      
                       GestureDetector(
                         onTap: widget.onTap,
                         child: const Text(
