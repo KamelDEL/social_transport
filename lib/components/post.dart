@@ -38,7 +38,9 @@ class Post extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  
+                },
                 icon: const Icon(
                   Icons.arrow_right,
                 ),

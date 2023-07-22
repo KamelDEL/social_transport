@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_transport/components/post.dart';
 
@@ -9,6 +10,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  void signout() {
+    FirebaseAuth.instance.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +30,34 @@ class _HomeState extends State<Home> {
           ],
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.notifications,
-            ),
+          Row(
+            children: [
+                  IconButton(
+                    onPressed: signout,
+                    icon: const Icon(
+                      Icons.logout,
+                    ),
+                  ),
+              const SizedBox(width: 20,)
+            ],
           ),
         ],
       ),
-      drawer: const Drawer(),
+      drawer: const Drawer(
+        child: Column(
+          children: [
+            
+            Center(
+              child: Row(
+                children: [
+                  Icon(Icons.person),
+                  Text("Profile")
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(onPressed: () {},
         child: const Icon(Icons.add)
       ),

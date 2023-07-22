@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_transport/components/button.dart';
+import 'package:social_transport/components/my_snack_bar.dart';
 import 'package:social_transport/components/text_field.dart';
-
-import 'home.dart';
 
 
 class Login extends StatefulWidget {
@@ -20,12 +20,29 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
-  void onTaping() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const Home(),
-      ),
-    );
+  void signIn() async{
+    showDialog(context: context, builder: (context) => const Center(
+      child:CircularProgressIndicator(), 
+    ));
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailTextController.text, 
+        password: passwordTextController.text,
+      );
+      if(context.mounted){
+        Navigator.pop(context);
+      }
+    } on FirebaseAuthException catch(e){
+      
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          padding: const EdgeInsets.all(0),
+          backgroundColor: Colors.transparent,
+          content: MySnackBar(e: e.code,)
+        )
+      );
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -69,7 +86,7 @@ class _LoginState extends State<Login> {
       
                     const SizedBox(height: 25),
       
-                    MyButton(onTap: onTaping, text: "SignIn"),
+                    MyButton(onTap: signIn, text: "SignIn"),
                     const SizedBox(height: 25),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

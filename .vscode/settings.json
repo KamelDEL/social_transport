@@ -1,3 +1,7 @@
 {
-    "cmake.sourceDirectory": "C:/Dev/Flutter/social_transport/linux"
+    "cmake.sourceDirectory": "C:/Dev/Flutter/social_transport/linux",
+    "cSpell.words": [
+        "firebaseapp",
+        "signout"
+    ]
 }
