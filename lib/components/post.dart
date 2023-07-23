@@ -16,7 +16,7 @@ class Post extends StatelessWidget {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: Colors.deepPurple,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(children: [
