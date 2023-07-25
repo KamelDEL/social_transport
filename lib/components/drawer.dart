@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:social_transport/components/break.dart';
+import 'package:social_transport/components/drawer_button.dart';
 
 // ignore: must_be_immutable
 class MyDrawer extends StatelessWidget {
@@ -29,87 +31,48 @@ class MyDrawer extends StatelessWidget {
                       Text("T R A N S P O R T E R"),
                     ],
                   ),
+                  const Break(),
                   SizedBox(
-                      height: 1,
-                      width: 200,
-                      child: Container(
-                        color: Colors.white,
-                      )),
-                  SizedBox(
-                    height: 50,
-                    child: Row(
+                    height: 150,
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text("Logged in as ${current_user!.email}"),
-                      ],
-                    ),
-                  ),
-                  MaterialButton(
-                    onPressed: () {},
-                    height: 50,
-                    child: const Row(
-                      children: [
-                        Icon(
-                          Icons.person,
-                          size: 20,
-                        ),
-                        SizedBox(
-                          width: 10,
+                        const Icon(
+                          Icons.face,
+                          size: 50,
                         ),
                         Text(
-                          "Profile",
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontStyle: FontStyle.normal,
-                              fontWeight: FontWeight.normal),
-                        ),
-                      ],
-                    ),
-                  ),
-                  MaterialButton(
-                    onPressed: () {},
-                    height: 50,
-                    child: const Row(
-                      children: [
-                        Icon(
-                          Icons.settings,
-                          size: 20,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "Settings",
-                          style: TextStyle(
-                            fontSize: 20,
+                          "${current_user!.email}",
+                          style: const TextStyle(
+                            fontSize: 15,
                           ),
                         ),
                       ],
                     ),
                   ),
+                  const Break(),
+                  DrawButton(
+                    text: "Profile", 
+                    icon: Icons.person, 
+                    onPressed: (){},
+                    red: false
+                  ),
+                  DrawButton(
+                    text: "Settings",
+                    icon: Icons.settings,
+                    onPressed: (){},
+                    red: false
+                  ),
+                  DrawButton(
+                      text: "Infos", icon: Icons.info, onPressed: () {}, red : false),
                 ],
               ),
             ),
-            MaterialButton(
-              onPressed: signout,
-              height: 50,
-              child: const Row(
-                children: [
-                  Icon(
-                    Icons.logout,
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "LogOut",
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 25),
+              child: DrawButton(
+                  text: "LogOut", icon: Icons.logout, onPressed: signout, red: true),
             ),
           ],
         ),

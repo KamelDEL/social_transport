@@ -13,20 +13,34 @@ class AddTransfer extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 100,
-            ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 100,
+              ),
 
-            MyTextField(
-              controller: description, 
-              hintText: "describe your transfer", 
-              obscureText: false
-            ),
-          ],
+              MyTextField(
+                controller: description,
+                hintText: "describe your transfer",
+                obscureText: false,
+              ),
+
+              MyTextField(
+                controller: description,
+                hintText: "From",
+                obscureText: false,
+              ),
+              
+              MyTextField(
+                controller: description,
+                hintText: "To",
+                obscureText: false,
+              ),
+            ],
+          ),
         ),
       ),
     );

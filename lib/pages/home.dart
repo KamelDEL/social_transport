@@ -23,6 +23,10 @@ class _HomeState extends State<Home> {
     );
   }
 
+  void openEndDrawer(){
+    Scaffold.of(context).openEndDrawer();
+  }
+
 // ignore: non_constant_identifier_names
 
   @override
@@ -31,25 +35,27 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:  [
-            Icon(Icons.emoji_transportation),
-            Text(
-              'T R A N S P O R T E R',
-            )
-          ],
+        title: const Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:  [
+              Icon(Icons.emoji_transportation),
+              Text(
+                'T R A N S P O R T E R',
+              )
+            ],
+          ),
         ),
         actions: [
           Row(
             children: [
                   IconButton(
-                    onPressed: signout,
+                    onPressed: openEndDrawer,
                     icon: const Icon(
                       Icons.inbox,
                     ),
                   ),
-              const SizedBox(width: 20,)
+              const SizedBox(width: 10,)
             ],
           ),
         ],
@@ -57,6 +63,7 @@ class _HomeState extends State<Home> {
       drawer: Drawer(
         child: MyDrawer(),
       ),
+      endDrawer: const Drawer(),
       floatingActionButton: FloatingActionButton(onPressed: createNewTransfer,
         child: const Icon(Icons.add),
       ),
