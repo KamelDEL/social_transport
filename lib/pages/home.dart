@@ -16,14 +16,12 @@ class _HomeState extends State<Home> {
   void signout() {
     FirebaseAuth.instance.signOut();
   }
-
   void createNewTransfer(){
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const AddTransfer()),
     );
   }
-
   void openEndDrawer(){
     Scaffold.of(context).openEndDrawer();
   }
@@ -63,7 +61,6 @@ class _HomeState extends State<Home> {
           color: Colors.white.withAlpha(90),
         ),
       ),
-      body: _children[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         fixedColor: Colors.blue,
         currentIndex: _selectedIndex,
@@ -74,6 +71,7 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "profile"),
         ],
       ),
+      body: _children[_selectedIndex],
     );
   }
 }

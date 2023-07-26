@@ -10,6 +10,7 @@ class Transfers extends StatefulWidget {
   State<Transfers> createState() => _TransfersState();
 }
 
+
 class _TransfersState extends State<Transfers> {
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,7 @@ class _TransfersState extends State<Transfers> {
                   description: transfer['Description'],
                   weight: transfer['Weight'],
                   price: transfer['Price'],
+                  date: transfer['TimeStamp'],
                   last: index+1 == snapshot.data!.docs.length
                 );
               }
