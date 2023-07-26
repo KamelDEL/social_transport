@@ -38,9 +38,6 @@ class _HomeState extends State<Home> {
       _selectedIndex = index;
     });
   }
-
-// ignore: non_constant_identifier_names
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

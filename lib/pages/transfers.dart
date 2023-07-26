@@ -41,7 +41,7 @@ class _TransfersState extends State<Transfers> {
           }
           else{
             return const Center(
-              child: Text('its so dry here')
+              child: CircularProgressIndicator()
             );
           }
         }

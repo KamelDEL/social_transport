@@ -19,7 +19,7 @@ class Post extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(email == "test@test.com") {
+    if(email == "kamel@kamel.com") {
       return Column(
         children: [
           Padding(

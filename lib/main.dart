@@ -2,8 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:social_transport/auth/auth.dart';
 import 'package:social_transport/firebase_options.dart';
-// import 'package:social_transport/pages/login.dart';
-// import 'package:social_transport/pages/register.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
