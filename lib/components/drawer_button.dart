@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class DrawButton extends StatelessWidget {
   final String text;
   final IconData icon;
@@ -12,7 +11,6 @@ class DrawButton extends StatelessWidget {
     required this.onPressed,
     required this.red
   });
-
   @override
   Widget build(BuildContext context) {
     return MaterialButton(

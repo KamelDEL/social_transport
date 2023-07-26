@@ -5,7 +5,9 @@ import 'package:social_transport/components/drawer_button.dart';
 
 // ignore: must_be_immutable
 class MyDrawer extends StatelessWidget {
-  MyDrawer({super.key});
+  MyDrawer({
+    super.key,
+  });
   
 // ignore: non_constant_identifier_names
   var current_user = FirebaseAuth.instance.currentUser;

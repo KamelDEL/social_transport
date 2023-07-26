@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_transport/components/drawer.dart';
@@ -37,11 +38,14 @@ class _HomeState extends State<Home> {
         elevation: 0,
         title: const Expanded(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children:  [
               Icon(Icons.emoji_transportation),
               Text(
                 'T R A N S P O R T E R',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Colors.blue
+                ),
               )
             ],
           ),
@@ -49,13 +53,27 @@ class _HomeState extends State<Home> {
         actions: [
           Row(
             children: [
-                  IconButton(
-                    onPressed: openEndDrawer,
-                    icon: const Icon(
-                      Icons.inbox,
-                    ),
-                  ),
-              const SizedBox(width: 10,)
+              IconButton(
+                onPressed: openEndDrawer,
+                icon: const Icon(
+                  Icons.inbox,
+                ),
+              ),
+              IconButton(
+                onPressed: openEndDrawer,
+                icon: const Icon(
+                  Icons.settings,
+                ),
+              ),
+              IconButton(
+                onPressed: openEndDrawer,
+                icon: const Icon(
+                  Icons.sunny,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
             ],
           ),
         ],
@@ -67,21 +85,36 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(onPressed: createNewTransfer,
         child: const Icon(Icons.add),
       ),
-      body: ListView(
-        children: const  [
-          Post(
-              text:
-                  'i have this and i need it to be transported, its a weigh of 32KG and i need it to be in algiers as fast as possible weigh of 32KG and i need it to be in algiers as fast as possible weigh of 32KG and i need it to be in algiers as fast as possible'),
-          Post(
-              text:
-                  'i have this and i need it to be transported, its a weigh of 52KG and i need it to be in algiers as fast as possible'),
-          Post(
-              text:
-                  'i have this and i need it to be transported, its a weigh of 42KG and i need it to be in algiers as fast as possible'),
-          Post(
-              text:
-                  'i have this and i need it to be transported, its a weigh of 98KG and i need it to be in algiers as fast as possible'),
-        ],
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore
+          .instance
+          .collection("Transfers")
+          .orderBy(
+            'TimeStamp',
+            descending: true
+          ).snapshots(),
+        builder: (context, snapshot) {
+          
+          if(snapshot.hasData){
+            return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index){
+                final transfer = snapshot.data!.docs[index];
+                return Post(
+                  email: transfer['Email'],
+                  description: transfer['Description'],
+                  weight: transfer['Weight'],
+                  price: transfer['Price'],
+                );
+              }
+            );
+          }
+          else{
+            return const Center(
+              child: Text('its so dry here')
+            );
+          }
+        }
       ),
     );
   }
