@@ -59,11 +59,16 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
         onPressed: createNewTransfer,
-        child: const Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+          color: Colors.white.withAlpha(90),
+        ),
       ),
       body: _children[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Colors.blue,
         currentIndex: _selectedIndex,
         type: BottomNavigationBarType.fixed,
         onTap: _navigateBottomBar,
