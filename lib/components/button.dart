@@ -6,7 +6,7 @@ class MyButton extends StatelessWidget {
   const MyButton({
     super.key,
     required this.onTap,
-    required this.text
+    required this.text,
   });
 
   @override
@@ -16,14 +16,13 @@ class MyButton extends StatelessWidget {
       child: Container(
           padding: const EdgeInsets.all(25),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color:  Colors.grey,
             borderRadius: BorderRadius.circular(8),
           ),  
           child: Center(
             child: Text(
               text,
               style: const TextStyle(
-                color: Colors.black,
                 fontSize: 20,
               ),
             ),

@@ -8,7 +8,7 @@ class Break extends StatelessWidget {
       height: 1,
       width: 250,
       child: Container(
-        color: Colors.grey,
+        color: Colors.grey.withAlpha(30),
       )
     );
   }

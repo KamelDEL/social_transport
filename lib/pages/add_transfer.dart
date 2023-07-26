@@ -29,6 +29,7 @@ class AddTransfer extends StatelessWidget {
           'Weight' : "${weight.text}Kg",
           'Price' : "${expectation.text}DA",
           'TimeStamp': Timestamp.now(),
+          'Comments': [],
         });
       } on FirebaseException catch (e) {
         SnackBar(content: MySnackBar(e: e.code));
@@ -94,7 +95,6 @@ class AddTransfer extends StatelessWidget {
                 const Text("Add a picture"),
                 const SizedBox(height: 10,),
                 DottedBorder(
-                  color: Colors.white,
                   strokeWidth: 3,
                   dashPattern: const [20,20],
                   child: Padding(

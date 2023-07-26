@@ -13,28 +13,30 @@ class DrawButton extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      elevation: 0,
-      color: red? Colors.red: Colors.transparent,
-      onPressed: onPressed,
-      height: 50,
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            size: 20,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            text,
-            style: const TextStyle(
-                fontSize: 20,
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.normal),
-          ),
-        ],
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        height: 60,
+        color: red? Colors.red: Colors.transparent,
+        child: Row(
+          children: [
+            const SizedBox(width: 15,),
+            Icon(
+              icon,
+              size: 20,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              text,
+              style: const TextStyle(
+                  fontSize: 20,
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.normal),
+            ),
+          ],
+        ),
       ),
     );
 }

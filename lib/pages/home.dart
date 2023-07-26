@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_transport/components/drawer.dart';
-import 'package:social_transport/components/post.dart';
 import 'package:social_transport/pages/add_transfer.dart';
+import 'package:social_transport/pages/profile.dart';
+import 'package:social_transport/pages/transfers.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -28,6 +28,17 @@ class _HomeState extends State<Home> {
     Scaffold.of(context).openEndDrawer();
   }
 
+  int _selectedIndex = 0;
+  final List<Widget> _children = [
+    const Transfers(),
+    const Profile(),
+  ];
+  void _navigateBottomBar(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
 // ignore: non_constant_identifier_names
 
   @override
@@ -36,85 +47,30 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Expanded(
-          child: Row(
-            children:  [
-              Icon(Icons.emoji_transportation),
-              Text(
-                'T R A N S P O R T E R',
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.blue
-                ),
-              )
-            ],
-          ),
-        ),
-        actions: [
-          Row(
-            children: [
-              IconButton(
-                onPressed: openEndDrawer,
-                icon: const Icon(
-                  Icons.inbox,
-                ),
-              ),
-              IconButton(
-                onPressed: openEndDrawer,
-                icon: const Icon(
-                  Icons.settings,
-                ),
-              ),
-              IconButton(
-                onPressed: openEndDrawer,
-                icon: const Icon(
-                  Icons.sunny,
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-            ],
-          ),
-        ],
+        title: const Text(
+          'T R A N S P O R T E R',
+          style: TextStyle(
+            fontSize: 13,
+            color: Colors.blue
+          ),),
       ),
       drawer: Drawer(
         child: MyDrawer(),
       ),
-      endDrawer: const Drawer(),
-      floatingActionButton: FloatingActionButton(onPressed: createNewTransfer,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: createNewTransfer,
         child: const Icon(Icons.add),
       ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore
-          .instance
-          .collection("Transfers")
-          .orderBy(
-            'TimeStamp',
-            descending: true
-          ).snapshots(),
-        builder: (context, snapshot) {
-          
-          if(snapshot.hasData){
-            return ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (context, index){
-                final transfer = snapshot.data!.docs[index];
-                return Post(
-                  email: transfer['Email'],
-                  description: transfer['Description'],
-                  weight: transfer['Weight'],
-                  price: transfer['Price'],
-                );
-              }
-            );
-          }
-          else{
-            return const Center(
-              child: Text('its so dry here')
-            );
-          }
-        }
+      body: _children[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        type: BottomNavigationBarType.fixed,
+        onTap: _navigateBottomBar,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "profile"),
+        ],
       ),
     );
   }
