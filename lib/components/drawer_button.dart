@@ -13,8 +13,8 @@ class DrawButton extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
+    return MaterialButton(
+      onPressed: onPressed,
       child: Container(
         height: 60,
         color: red? Colors.red: Colors.transparent,
