@@ -1,16 +1,16 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:social_transport/components/break.dart';
+import 'package:social_transport/components/comment.dart';
 
-class Post extends StatefulWidget {
+class Post extends StatelessWidget {
   final String description;
   final String weight;
   final String price;
   final String email;
   final Timestamp date;
+  final int nowDate;
   final bool last;
   const Post({
     required this.description, 
@@ -19,44 +19,33 @@ class Post extends StatefulWidget {
     required this.email,
     required this.last,
     required this.date,
+    required this.nowDate,
     super.key
   });
 
-  @override
-  State<Post> createState() => _PostState();
-}
-
-class _PostState extends State<Post> {
-  int time = 0;
-  Timer? timing;
-
-  void _startCountDown(){
-      timing = Timer.periodic(const Duration(seconds: 1), (timer) {
-        setState(() {
-          time =900 - (Timestamp.now().seconds.toInt() - widget.date.seconds.toInt());
-          if(time == 0){
-            timing?.cancel();
-          }
-        });
-      });
-  }
-  
   String timerSeconds(time){
-    if(time%60<10){
-      return "0${time%60}";
+    if(time >= 0){
+      if (time % 60 < 10) {
+        return "0${time % 60}";
+      }
+      return "${time % 60}";
     }
-    return "${time%60}";
+    return "00";
   }
+
   String timerMinutes(time){
-    if(time<10){
-      return "0${time~/60}";
+    if(time >0 ){
+      if (time < 10) {
+        return "0${time ~/ 60}";
+      }
+      return "${time ~/ 60}";
     }
-    return "${time~/60}";
+    return "00";
   }
+
   @override
   Widget build(BuildContext context) {
-    if(Timestamp.now().seconds - widget.date.seconds <= 900) {
-      _startCountDown();
+    if(nowDate < 900) {
       return Column(
         children: [
           Padding(
@@ -73,19 +62,19 @@ class _PostState extends State<Post> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text("${timerMinutes(time)}:${timerSeconds(time)}"),
+                        Text("${timerMinutes(nowDate)}:${timerSeconds(nowDate)}"),
                         Row(
                           children: [
                             const Icon(
                               Icons.person
                             ),
                             Text(
-                              widget.email,
+                              email,
                               style: const TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w100,
-                                fontStyle: FontStyle.italic
-                              ),  
+                                fontStyle: FontStyle.italic,
+                              ),
                             ),
                           ],
                         ),
@@ -106,7 +95,7 @@ class _PostState extends State<Post> {
                                     padding: const EdgeInsets.only(
                                         top: 10, bottom: 10, left: 4),
                                     child: Text(
-                                      widget.description,
+                                      description,
                                       textAlign: TextAlign.left,
                                       style: const TextStyle(
                                         fontSize: 18,
@@ -151,7 +140,7 @@ class _PostState extends State<Post> {
                                       ),
                                     ),
                                     TextSpan(
-                                      text: widget.weight,
+                                      text: weight,
                                       style: const TextStyle(
                                         fontStyle: FontStyle.italic,
                                         color: Colors.white,
@@ -173,7 +162,7 @@ class _PostState extends State<Post> {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: widget.price,
+                                        text: price,
                                         style: const TextStyle(
                                           fontStyle: FontStyle.italic,
                                           color: Colors.white,
@@ -187,30 +176,51 @@ class _PostState extends State<Post> {
                             ),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: (){},
-                          child: Container(
-                            height: 35,
-                            width: 100,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.withAlpha(30),
-                              borderRadius: BorderRadius.circular(5)
+                        Container(
+                          height: 35,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withAlpha(30),
+                            borderRadius: BorderRadius.circular(5)
+                          ),
+                          child: MaterialButton(
+                            onPressed: () {},
+                            child:const Center(
+                              child: Text(
+                                "Add Offer",
+                              )
                             ),
-                            child:const Center(child: Text("Add Offer",)),)
+                          )
                         )
                       ],
                     ),
                   ),
+                  const Text('Offers'),
+                  const Row(
+                    children: [
+                      SizedBox(width: 30,),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Comment(offer: "10000DA"),
+                            Comment(offer: "10000DA"),
+                            Comment(offer: "10000DA"),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
-            ).animate().fade(),
+          ).animate().fade(),
           const Break(),
-          widget.last ? const SizedBox(height: 50) : const SizedBox(height: 0)
+          last ? const SizedBox(height: 50) : const SizedBox(height: 0),
         ],
       );
-    } else {
-      return const SizedBox();
-    }
+    } else{
+        return Container();
+      }
   }
 }

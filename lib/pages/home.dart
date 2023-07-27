@@ -4,14 +4,12 @@ import 'package:social_transport/components/drawer.dart';
 import 'package:social_transport/pages/add_transfer.dart';
 import 'package:social_transport/pages/profile.dart';
 import 'package:social_transport/pages/transfers.dart';
-
 class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
 }
-
 class _HomeState extends State<Home> {
   void signout() {
     FirebaseAuth.instance.signOut();
@@ -25,7 +23,6 @@ class _HomeState extends State<Home> {
   void openEndDrawer(){
     Scaffold.of(context).openEndDrawer();
   }
-
   int _selectedIndex = 0;
   final List<Widget> _children = [
     const Transfers(),

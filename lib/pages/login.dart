@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
                     const Text(
                       "Welcome back to the app!",
                     ),
-      
+
                     const SizedBox(height: 25),
       
                     MyTextField(
@@ -75,7 +75,7 @@ class _LoginState extends State<Login> {
                       obscureText: false,
                       hintText: "Email",
                     ),
-      
+
                     const SizedBox(height: 25),
                     
                     MyTextField(

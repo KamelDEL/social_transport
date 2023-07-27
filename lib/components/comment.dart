@@ -9,18 +9,31 @@ class Comment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey,
-      child: Row(
-        children: [
-          const Icon(Icons.abc),
-          Column(
+    return Padding(
+      padding: const EdgeInsets.all(3.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey.withAlpha(10),
+          borderRadius: BorderRadius.circular(10)
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
             children: [
-              Text(offer)
+              const Icon(Icons.person),
+              Column(
+                children: [
+                  Text(offer)
+                ],
+              ),
+              const Expanded(
+                child: SizedBox()
+              ),
+              const Icon(Icons.arrow_right)
             ],
-          )
-        ],
-      )
+          ),
+        )
+      ),
     );
   }
 }
