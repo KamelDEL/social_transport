@@ -29,7 +29,6 @@ class AddTransfer extends StatelessWidget {
           'Weight' : "${weight.text}Kg",
           'Price' : "${expectation.text}DA",
           'TimeStamp': Timestamp.now(),
-          'Comments': [],
         });
       } on FirebaseException catch (e) {
         SnackBar(content: MySnackBar(e: e.code));

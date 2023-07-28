@@ -22,6 +22,26 @@ class _TransfersState extends State<Transfers> {
       });
     });
   }
+
+  void delete(id)async {
+    final commentsDocs =
+      await FirebaseFirestore.instance
+        .collection('Transfers')
+        .doc(id)
+        .collection('Comments')
+        .get();
+    for(var doc in commentsDocs.docs){
+      await FirebaseFirestore.instance
+        .collection('Transfers')
+        .doc(id)
+        .collection('Comments').doc(doc.id).delete();
+    }
+    FirebaseFirestore.instance
+      .collection('Transfers')
+      .doc(id)
+      .delete();
+
+  }
   // setDate(date){
 
   // }
@@ -51,22 +71,23 @@ class _TransfersState extends State<Transfers> {
                 final timer = 900 - (time.toInt() - transfer['TimeStamp'].seconds.toInt());
                 final id = transfer.id;
                 if(timer > 0) {
-                  return Post(
-                    email: transfer['Email'],
-                    description: transfer['Description'],
-                    weight: transfer['Weight'],
-                    price: transfer['Price'],
-                    date: transfer['TimeStamp'],
-                    nowDate: timer.toInt(),
-                    last: index+1 == snapshot.data!.docs.length,
+                  return Column(
+                    children: [
+                      Post(
+                        email: transfer['Email'],
+                        description: transfer['Description'],
+                        weight: transfer['Weight'],
+                        price: transfer['Price'],
+                        date: transfer['TimeStamp'],
+                        nowDate: timer.toInt(),
+                        last: index+1 == snapshot.data!.docs.length,
+                        postId : id,
+                      ),
+                    ],
                   );
                 }
                 else {
-                  FirebaseFirestore
-                  .instance
-                  .collection('Transfers')
-                  .doc(id)
-                  .delete();
+                  delete(id);
                   return Container();
                 }
               }

@@ -15,27 +15,31 @@ class MyTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          controller: controller,
-          obscureText: obscureText,
-          decoration: InputDecoration(
-            enabledBorder: const  OutlineInputBorder(
-              borderSide: BorderSide(),
+    return SizedBox(
+      width: 400,
+      child: Column(
+        children: [
+        const SizedBox(height: 10,),
+          TextField(
+            controller: controller,
+            obscureText: obscureText,
+            decoration: InputDecoration(
+              enabledBorder: const  OutlineInputBorder(
+                borderSide: BorderSide(),
+              ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(),
+              ),
+              fillColor: Colors.grey[400]!,
+              hintText: hintText,
+              hintStyle: TextStyle(
+                color:Colors.grey[400]!,
+              )
             ),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(),
-            ),
-            fillColor: Colors.grey[400]!,
-            hintText: hintText,
-            hintStyle: TextStyle(
-              color:Colors.grey[400]!,
-            )
           ),
-        ),
-        const SizedBox(height: 25,)
-      ],
+          const SizedBox(height: 10,)
+        ],
+      ),
     );
   }
 }

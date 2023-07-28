@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:social_transport/components/break.dart';
-import 'package:social_transport/components/comment.dart';
 
-class Post extends StatelessWidget {
+import 'comments.dart';
+
+class Post extends StatefulWidget {
   final String description;
   final String weight;
   final String price;
@@ -12,6 +14,7 @@ class Post extends StatelessWidget {
   final Timestamp date;
   final int nowDate;
   final bool last;
+  final String postId;
   const Post({
     required this.description, 
     required this.weight,
@@ -20,9 +23,17 @@ class Post extends StatelessWidget {
     required this.last,
     required this.date,
     required this.nowDate,
+    required this.postId,
     super.key
   });
 
+  @override
+  State<Post> createState() => _PostState();
+}
+
+class _PostState extends State<Post> {
+  final currentUser = FirebaseAuth.instance.currentUser!;
+  final _controller = TextEditingController();
   String timerSeconds(time){
     if(time >= 0){
       if (time % 60 < 10) {
@@ -43,9 +54,44 @@ class Post extends StatelessWidget {
     return "00";
   }
 
+  void showCommentDialog() {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text("Add Offer"),
+              content: TextField(
+                controller: _controller,
+              ),
+              actions: [
+                TextButton(
+                  child: const Text("add"),
+                  onPressed: () {
+                    FirebaseFirestore.instance
+                        .collection("Transfers")
+                        .doc(widget.postId)
+                        .collection("Comments")
+                        .add({
+                      "commentText": _controller.text,
+                      "CommentedBy": currentUser.email,
+                      "CommentTime": Timestamp.now()
+                    });
+                    _controller.clear();
+                    Navigator.pop(context);
+                  },
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("cancel"),
+                )
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
-    if(nowDate < 900) {
+    if(widget.nowDate < 900) {
       return Column(
         children: [
           Padding(
@@ -62,14 +108,14 @@ class Post extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text("${timerMinutes(nowDate)}:${timerSeconds(nowDate)}"),
+                        Text("${timerMinutes(widget.nowDate)}:${timerSeconds(widget.nowDate)}"),
                         Row(
                           children: [
                             const Icon(
                               Icons.person
                             ),
                             Text(
-                              email,
+                              widget.email,
                               style: const TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w100,
@@ -95,7 +141,7 @@ class Post extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         top: 10, bottom: 10, left: 4),
                                     child: Text(
-                                      description,
+                                      widget.description,
                                       textAlign: TextAlign.left,
                                       style: const TextStyle(
                                         fontSize: 18,
@@ -140,7 +186,7 @@ class Post extends StatelessWidget {
                                       ),
                                     ),
                                     TextSpan(
-                                      text: weight,
+                                      text: widget.weight,
                                       style: const TextStyle(
                                         fontStyle: FontStyle.italic,
                                         color: Colors.white,
@@ -162,7 +208,7 @@ class Post extends StatelessWidget {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: price,
+                                        text: widget.price,
                                         style: const TextStyle(
                                           fontStyle: FontStyle.italic,
                                           color: Colors.white,
@@ -184,7 +230,7 @@ class Post extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5)
                           ),
                           child: MaterialButton(
-                            onPressed: () {},
+                            onPressed: showCommentDialog,
                             child:const Center(
                               child: Text(
                                 "Add Offer",
@@ -195,28 +241,43 @@ class Post extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Text('Offers'),
+                  Row(
+                    children: [
+                      Expanded(child: Container(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Container(
+                          color: Colors.blue.withAlpha(20),
+                          child: TextButton(child: const Text('Offers'),onPressed: (){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Comments(id: widget.postId)),
+                              );
+                          },),
+                        ),
+                      )),
+                    ],
+                  ),
                   const Row(
                     children: [
-                      SizedBox(width: 30,),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Comment(offer: "10000DA"),
-                            Comment(offer: "10000DA"),
-                            Comment(offer: "10000DA"),
-                          ],
-                        ),
+                      SizedBox(
+                        width: 30,
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
           ).animate().fade(),
           const Break(),
-          last ? const SizedBox(height: 50) : const SizedBox(height: 0),
+          widget.last ? Container(
+            height: 100,
+            width: 600,
+            color:Colors.grey.withAlpha(20),
+            child: const Center(
+              child: Text("End Of Transfers")
+            )) 
+            : const SizedBox(),
         ],
       );
     } else{
