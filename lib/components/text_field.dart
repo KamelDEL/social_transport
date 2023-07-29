@@ -16,7 +16,7 @@ class MyTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 400,
+      width: 350,
       child: Column(
         children: [
         const SizedBox(height: 10,),
@@ -37,7 +37,7 @@ class MyTextField extends StatelessWidget {
               )
             ),
           ),
-          const SizedBox(height: 10,)
+          const SizedBox(height: 10,),
         ],
       ),
     );

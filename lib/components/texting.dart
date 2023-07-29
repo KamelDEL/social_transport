@@ -12,48 +12,51 @@ class TextingBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final addOfferController = TextEditingController();
     final currentUser = FirebaseAuth.instance.currentUser;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
+    return SizedBox(
+      height: 90,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
               child: MyTextField(
-            controller: addOfferController,
-            hintText: 'add an offer',
-            obscureText: false,
-          )),
-          Padding(
-            padding: const EdgeInsets.only(left: 5),
-            child: Container(
-              width: 45,
-              height: 45,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(50)  
-              ),
-              child: Center(
-                child: IconButton(onPressed: () {
-                        FirebaseFirestore.instance
-                            .collection("Transfers")
-                            .doc(id)
-                            .collection("Comments")
-                            .add({
-                          "commentText": addOfferController.text,
-                          "CommentedBy": currentUser?.email,
-                          "CommentTime": Timestamp.now()
-                        });
-                        addOfferController.clear();
-                      },
-                      icon: const Icon(Icons.send),
-              ),)),
-          )
-        ],
+                controller: addOfferController,
+                hintText: 'add an offer',
+                obscureText: false,
+              )
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 5),
+              child: Container(
+                width: 45,
+                height: 45,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(50)  
+                ),
+                child: Center(
+                  child: IconButton(onPressed: () {
+                          FirebaseFirestore.instance
+                              .collection("Transfers")
+                              .doc(id)
+                              .collection("Comments")
+                              .add({
+                            "commentText": addOfferController.text,
+                            "CommentedBy": currentUser?.email,
+                            "CommentTime": Timestamp.now()
+                          });
+                          addOfferController.clear();
+                        },
+                        icon: const Icon(Icons.send),
+                ),)),
+            )
+          ],
+        ),
       ),
     );
   }

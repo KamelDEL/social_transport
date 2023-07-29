@@ -18,6 +18,11 @@ class _CommentsState extends State<Comments> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        elevation: 2,
+        color: Colors.transparent,
+        child: TextingBar(id: widget.id),
+      ),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -59,7 +64,6 @@ class _CommentsState extends State<Comments> {
                         }
                       ),
                     ),
-                    TextingBar(id: widget.id),
                   ],
                 ),
               );}
