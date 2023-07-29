@@ -106,7 +106,7 @@ class AddTransfer extends StatelessWidget {
                         child: GestureDetector(
                           child: SizedBox(
                             height: 200,
-                            width:400,
+                            width:350,
                             child: Container(
                               color: Colors.black45,
                               child: const Center(
@@ -126,7 +126,7 @@ class AddTransfer extends StatelessWidget {
                     ),
                     
                     SizedBox(
-                      width: 400,
+                      width: 350,
                       child: MyButton(
                         onTap: postTransfer, 
                         text: "Add Transfer",
