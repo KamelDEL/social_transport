@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:social_transport/components/comments.dart';
 
 import '../components/post.dart';
 
@@ -15,6 +16,7 @@ class Transfers extends StatefulWidget {
 
 class _TransfersState extends State<Transfers> {
   int time = 0;
+  String postId = "";
   void _startCountDown() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
@@ -53,53 +55,53 @@ class _TransfersState extends State<Transfers> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore
-          .instance
-          .collection("Transfers")
-          .orderBy(
-            'TimeStamp',
-            descending: true
-          ).snapshots(),
-        builder: (context, snapshot) {
-          if(snapshot.hasData){
-            return ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (context, index) {
-                final transfer = snapshot.data!.docs[index];
-                final timer = 900 - (time.toInt() - transfer['TimeStamp'].seconds.toInt());
-                final id = transfer.id;
-                if(timer > 0) {
-                  return Column(
-                    children: [
-                      Post(
-                        email: transfer['Email'],
-                        description: transfer['Description'],
-                        weight: transfer['Weight'],
-                        price: transfer['Price'],
-                        date: transfer['TimeStamp'],
-                        nowDate: timer.toInt(),
-                        last: index+1 == snapshot.data!.docs.length,
-                        postId : id,
-                      ),
-                    ],
-                  );
+    return Stack(
+      children: [
+        Comments(id: postId),
+        Scaffold(
+        body: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore
+            .instance
+            .collection("Transfers")
+            .orderBy(
+              'TimeStamp',
+              descending: true
+            ).snapshots(),
+          builder: (context, snapshot) {
+            if(snapshot.hasData){
+              return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  final transfer = snapshot.data!.docs[index];
+                  final timer = 900 - (time.toInt() - transfer['TimeStamp'].seconds.toInt());
+                  final id = transfer.id;
+                  if(timer > 0) {
+                    return Post(
+                          email: transfer['Email'],
+                          description: transfer['Description'],
+                          weight: transfer['Weight'],
+                          price: transfer['Price'],
+                          date: transfer['TimeStamp'],
+                          nowDate: timer.toInt(),
+                          last: index+1 == snapshot.data!.docs.length,
+                          postId : id,
+                        );
                 }
-                else {
-                  delete(id);
-                  return Container();
+                  else {
+                    delete(id);
+                    return Container();
+                  }
                 }
-              }
-            );
+              );
+            }
+            else{
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
           }
-          else{
-            return const Center(
-              child: CircularProgressIndicator()
-            );
-          }
-        }
-      ),
+        ),
+      ),]
     );
   }
 }

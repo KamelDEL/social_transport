@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Comment extends StatelessWidget {
   final String offer;
   final String user;
-  final String time;
+  final Timestamp time;
   final bool last;
   const Comment({
     super.key,
@@ -34,7 +35,7 @@ class Comment extends StatelessWidget {
                       Row(
                         children: [
                           Text(user),
-                          Text(time),
+                          Text((time.seconds/60).toString()),
                         ],
                       ),
                       Text(offer)

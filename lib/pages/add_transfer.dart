@@ -52,95 +52,92 @@ class AddTransfer extends StatelessWidget {
         elevation: 0,
       ),
       body: SafeArea(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 25,
-                    ),
-            
-                    MyTextField(
-                      controller: description,
-                      hintText: "describe your transfer",
-                      obscureText: false,
-                    ),
-            
-                    MyTextField(
-                      controller: from,
-                      hintText: "From",
-                      obscureText: false,
-                    ),
-                    
-                    MyTextField(
-                      controller: to,
-                      hintText: "To",
-                      obscureText: false,
-                    ),
-            
-                    MyTextField(
-                      controller: weight, 
-                      hintText: "How many KG", 
-                      obscureText: false,
-                    ),
-            
-                    MyTextField(
-                      controller: expectation, 
-                      hintText: "How much money is your expectations", 
-                      obscureText: false,
-                    ),
-                    
-                    const Text("Add a picture"),
-                    const SizedBox(height: 10,),
-                    DottedBorder(
-                      strokeWidth: 3,
-                      dashPattern: const [20,20],
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GestureDetector(
-                          child: SizedBox(
-                            height: 200,
-                            width:350,
-                            child: Container(
-                              color: Colors.black45,
-                              child: const Center(
-                                child: Icon(
-                                  Icons.add,
-                                  size: 50,
-                                ),
+        child: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding:const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  
+                  MyTextField(
+                    controller: description,
+                    hintText: "describe your transfer",
+                    obscureText: false,
+                  ),
+                  
+                  MyTextField(
+                    controller: from,
+                    hintText: "From",
+                    obscureText: false,
+                  ),
+                  
+                  MyTextField(
+                    controller: to,
+                    hintText: "To",
+                    obscureText: false,
+                  ),
+                  
+                  MyTextField(
+                    controller: weight, 
+                    hintText: "How many KG", 
+                    obscureText: false,
+                  ),
+                  
+                  MyTextField(
+                    controller: expectation, 
+                    hintText: "How much money is your expectations", 
+                    obscureText: false,
+                  ),
+                  
+                  const Text("Add a picture"),
+                  const SizedBox(height: 10,),
+                  DottedBorder(
+                    strokeWidth: 3,
+                    dashPattern: const [20,20],
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        child: SizedBox(
+                          height: 200,
+                          width:500,
+                          child: Container(
+                            color: Colors.black45,
+                            child: const Center(
+                              child: Icon(
+                                Icons.add,
+                                size: 50,
                               ),
                             ),
                           ),
-                        ),
+                        )
                       ),
                     ),
-                    
-                    const SizedBox(
-                      height: 10,
+                  ),
+                  
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  
+                  SizedBox(
+                    width: 500,
+                    child: MyButton(
+                      onTap: postTransfer, 
+                      text: "Add Transfer",
                     ),
-                    
-                    SizedBox(
-                      width: 350,
-                      child: MyButton(
-                        onTap: postTransfer, 
-                        text: "Add Transfer",
-                      ),
-                    ),
-
-                    const SizedBox(
-                      height: 30,
-                    ),
-                  ],
-                ),
+                  ),
+          
+                  const SizedBox(
+                    height: 30,
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ).animate().fade(),
     );

@@ -15,10 +15,11 @@ class TextingBar extends StatelessWidget {
     final addOfferController = TextEditingController();
     final currentUser = FirebaseAuth.instance.currentUser;
 
-    return SizedBox(
+    return Container(
+      alignment: const Alignment(0, 1),
       height: 90,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -31,29 +32,28 @@ class TextingBar extends StatelessWidget {
               )
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 5),
+              padding: const EdgeInsets.only(left: 5,bottom: 15),
               child: Container(
                 width: 45,
                 height: 45,
                 decoration: BoxDecoration(
                   color: Colors.blue,
-                  borderRadius: BorderRadius.circular(50)  
+                  borderRadius: BorderRadius.circular(50),
                 ),
-                child: Center(
-                  child: IconButton(onPressed: () {
-                          FirebaseFirestore.instance
-                              .collection("Transfers")
-                              .doc(id)
-                              .collection("Comments")
-                              .add({
-                            "commentText": addOfferController.text,
-                            "CommentedBy": currentUser?.email,
-                            "CommentTime": Timestamp.now()
-                          });
-                          addOfferController.clear();
-                        },
-                        icon: const Icon(Icons.send),
-                ),)),
+                child: IconButton(onPressed: () {
+                        FirebaseFirestore.instance
+                            .collection("Transfers")
+                            .doc(id)
+                            .collection("Comments")
+                            .add({
+                          "commentText": addOfferController.text,
+                          "CommentedBy": currentUser?.email,
+                          "CommentTime": Timestamp.now(),
+                        });
+                        addOfferController.clear();
+                      },
+                      icon: const Icon(Icons.post_add),
+                )),
             )
           ],
         ),
