@@ -65,7 +65,7 @@ class _TransfersState extends State<Transfers> {
             .collection("Transfers")
             .orderBy(
               'TimeStamp',
-              descending: true
+              descending: true,
             ).snapshots(),
           builder: (context, snapshot) {
             if(snapshot.hasData){

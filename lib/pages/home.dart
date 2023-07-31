@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
         onTap: _navigateBottomBar,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.history), label: "history"),
         ],
       ),
       body: _children[_selectedIndex],

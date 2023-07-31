@@ -18,11 +18,13 @@ class Comments extends StatelessWidget {
         title: const Text("Offers"),
       ),
       body: 
-          Column(
-            children: [
-              Expanded(child: CommentField(id: id)),
-              TextingBar(id: id)
-            ],
+          SizedBox(
+            child: Column(
+              children: [
+                Expanded(child: CommentField(id: id)),
+                TextingBar(id: id)
+              ],
+            ),
           )
     );
   }

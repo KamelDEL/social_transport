@@ -248,11 +248,14 @@ class _PostState extends State<Post> {
                         child: Container(
                           color: Colors.blue.withAlpha(20),
                           child: TextButton(child: const Text('Offers'),onPressed: (){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Comments(id: widget.postId)),
-                              );
+                            showModalBottomSheet(context: context, builder: (BuildContext context){
+                              return Comments(id: widget.postId);
+                            });
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => Comments(id: widget.postId)),
+                            //   );
                           },),
                         ),
                       )),
