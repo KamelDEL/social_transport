@@ -251,11 +251,6 @@ class _PostState extends State<Post> {
                             showModalBottomSheet(context: context, builder: (BuildContext context){
                               return Comments(id: widget.postId);
                             });
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder: (context) => Comments(id: widget.postId)),
-                            //   );
                           },),
                         ),
                       )),
