@@ -16,7 +16,8 @@ class DrawButton extends StatelessWidget {
     return MaterialButton(
       onPressed: onPressed,
       child: Container(
-        height: 60,
+        height: 40,
+        width: 200,
         color: red? Colors.red: Colors.transparent,
         child: Row(
           children: [

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:social_transport/components/comments.dart';
 
 import '../components/post.dart';
 
@@ -55,10 +54,7 @@ class _TransfersState extends State<Transfers> {
   }
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Comments(id: postId),
-        Scaffold(
+    return Scaffold(
         body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore
             .instance
@@ -101,7 +97,6 @@ class _TransfersState extends State<Transfers> {
             }
           }
         ),
-      ),]
-    );
+      );
   }
 }

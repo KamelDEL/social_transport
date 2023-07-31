@@ -46,9 +46,9 @@ class _HomeState extends State<Home> {
             color: Colors.blue
           ),),
       ),
-      drawer: Drawer(
+      drawer: MediaQuery.of(context).size.shortestSide<700? Drawer(
         child: MyDrawer(),
-      ),
+      ):null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
@@ -68,7 +68,13 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(icon: Icon(Icons.history), label: "history"),
         ],
       ),
-      body: _children[_selectedIndex],
-    );
+      body: MediaQuery.of(context).size.shortestSide<700? _children[_selectedIndex]
+      :Row(
+        children: [
+          MyDrawer(), 
+          Expanded(
+            child: _children[_selectedIndex]
+          ),]
+        ));
   }
 }

@@ -11,21 +11,30 @@ class Comments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
+    return GestureDetector(
+      onTap: (){Navigator.pop(context);},
+      child: Scaffold(
         backgroundColor: Colors.transparent,
-        title: const Text("Offers"),
+        body: 
+            Center(
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[800]!,
+                  ),
+                  height: 600,
+                  width: 500,
+                  child: Column(
+                    children: [
+                      Expanded(child: CommentField(id: id)),
+                      TextingBar(id: id)
+                    ],
+                  ),
+                ),
+              ),
+            )
       ),
-      body: 
-          SizedBox(
-            child: Column(
-              children: [
-                Expanded(child: CommentField(id: id)),
-                TextingBar(id: id)
-              ],
-            ),
-          )
     );
   }
 }

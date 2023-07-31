@@ -30,7 +30,7 @@ class _CommentFieldState extends State<CommentField> {
           builder: (context, snapshot) {
             if(snapshot.hasData){
               return Padding(
-                padding: const EdgeInsets.only(top:10,right: 10,left: 10),
+                padding: const EdgeInsets.only(right: 10,left: 10),
                 child: Column(
                   children: [
                     Expanded(

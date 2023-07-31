@@ -248,9 +248,28 @@ class _PostState extends State<Post> {
                         child: Container(
                           color: Colors.blue.withAlpha(20),
                           child: TextButton(child: const Text('Offers'),onPressed: (){
-                            showModalBottomSheet(context: context, builder: (BuildContext context){
-                              return Comments(id: widget.postId);
+                            if(MediaQuery.of(context).size.shortestSide < 600) {
+                              showModalBottomSheet<void>(context: context,backgroundColor: Colors.transparent, builder: (BuildContext context){
+                              return ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  topLeft:Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                ),
+                                  child: Comments(
+                                    id: widget.postId
+                                  ),
+                              );
                             });
+                            } else {
+                              showDialog(context: context, builder: (BuildContext context){
+                                return ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(40),
+                                            topRight: Radius.circular(40)),
+                                        child: Comments(id: widget.postId),
+                                      );
+                              });
+                            }
                           },),
                         ),
                       )),
@@ -270,7 +289,7 @@ class _PostState extends State<Post> {
           const Break(),
           widget.last ? Container(
             height: 100,
-            width: 600,
+            width: 500,
             color:Colors.grey.withAlpha(20),
             child: const Center(
               child: Text("End Of Transfers")
