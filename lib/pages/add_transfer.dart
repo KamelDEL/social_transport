@@ -6,7 +6,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:social_transport/components/button.dart';
 import 'package:social_transport/components/my_snack_bar.dart';
 import 'package:social_transport/components/text_field.dart';
-import 'package:social_transport/pages/home.dart';
 
 class AddTransfer extends StatelessWidget {
   const AddTransfer({super.key});
@@ -21,15 +20,19 @@ class AddTransfer extends StatelessWidget {
     
     void postTransfer() {
       try {
-        FirebaseFirestore.instance.collection("Transfers").add({
-          'Email' : FirebaseAuth.instance.currentUser?.email,
-          'Description' : description.text,
-          'From': from.text,
-          'To' : to.text,
-          'Weight' : "${weight.text}Kg",
-          'Price' : "${expectation.text}DA",
-          'TimeStamp': Timestamp.now(),
-        });
+        FirebaseFirestore
+          .instance
+          .collection("Transfers")
+          .add({
+            'Email' : FirebaseAuth.instance.currentUser?.email,
+            'Description' : description.text,
+            'From': from.text,
+            'To' : to.text,
+            'Weight' : "${weight.text}Kg",
+            'Price' : "${expectation.text}DA",
+            'TimeStamp': Timestamp.now(),
+          }
+        );
       } on FirebaseException catch (e) {
         SnackBar(content: MySnackBar(e: e.code));
       }
@@ -38,11 +41,11 @@ class AddTransfer extends StatelessWidget {
       to.text = "";
       weight.text = "";
       expectation.text = "";
-      
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const Home()),
-      );
+      Navigator.pop(context);
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => const Home()),
+      // );
       
     }
     return Scaffold(

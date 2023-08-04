@@ -15,25 +15,24 @@ class Comments extends StatelessWidget {
       onTap: (){Navigator.pop(context);},
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: 
-            Center(
-              child: GestureDetector(
-                onTap: () {},
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[800]!,
-                  ),
-                  height: 600,
-                  width: 500,
-                  child: Column(
-                    children: [
-                      Expanded(child: CommentField(id: id)),
-                      TextingBar(id: id)
-                    ],
-                  ),
-                ),
+        body: Center(
+          child: GestureDetector(
+            onTap: () {},
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[800]!,
               ),
-            )
+              height: 600,
+              width: 500,
+              child: Column(
+                children: [
+                  Expanded(child: CommentField(id: id)),
+                  TextingBar(id: id)
+                ],
+              ),
+            ),
+          ),
+        )
       ),
     );
   }

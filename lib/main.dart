@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:social_transport/auth/auth.dart';
 import 'package:social_transport/firebase_options.dart';
+import 'package:social_transport/themes/dark_theme.dart';
+import 'package:social_transport/themes/light_theme.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -21,9 +23,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       home: const AuthPage(),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-      ),
+      theme: lightTheme,
+      darkTheme: darkTheme,
     );
   }
 }

@@ -13,8 +13,9 @@ class Transfers extends StatefulWidget {
 }
 
 
-class _TransfersState extends State<Transfers> {
+class _TransfersState extends State<Transfers> with AutomaticKeepAliveClientMixin{
   int time = 0;
+  bool inScreen = false;
   String postId = "";
   void _startCountDown() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -23,7 +24,6 @@ class _TransfersState extends State<Transfers> {
       });
     });
   }
-
   void delete(id)async {
     final commentsDocs =
       await FirebaseFirestore.instance
@@ -41,19 +41,20 @@ class _TransfersState extends State<Transfers> {
       .collection('Transfers')
       .doc(id)
       .delete();
-
   }
-  // setDate(date){
-
-  // }
-  
   @override
   void initState() {
     _startCountDown();
     super.initState();
   }
   @override
+  void dispose() {
+    
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
         body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore
@@ -99,4 +100,7 @@ class _TransfersState extends State<Transfers> {
         ),
       );
   }
+  
+  @override
+  bool get wantKeepAlive => true;
 }

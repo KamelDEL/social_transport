@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
       ):null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).colorScheme.background,
         onPressed: createNewTransfer,
         child: Icon(
           Icons.add,
