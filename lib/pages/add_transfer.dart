@@ -49,6 +49,7 @@ class AddTransfer extends StatelessWidget {
       
     }
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: const Text("Add new transfer"),
         backgroundColor: Colors.transparent,

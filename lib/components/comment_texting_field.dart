@@ -9,11 +9,24 @@ class TextingBar extends StatelessWidget {
     required this.id,
     super.key});
   
+  
 
   @override
   Widget build(BuildContext context) {
     final addOfferController = TextEditingController();
     final currentUser = FirebaseAuth.instance.currentUser;
+    void addComment() {
+      FirebaseFirestore.instance
+          .collection("Transfers")
+          .doc(id)
+          .collection("Comments")
+          .add({
+        "commentText": addOfferController.text,
+        "CommentedBy": currentUser?.email,
+        "CommentTime": Timestamp.now(),
+      });
+      addOfferController.clear();
+    }
 
     return Container(
       alignment: const Alignment(0, 1),
@@ -40,18 +53,7 @@ class TextingBar extends StatelessWidget {
                   color: Colors.blue,
                   borderRadius: BorderRadius.circular(50),
                 ),
-                child: IconButton(onPressed: () {
-                        FirebaseFirestore.instance
-                            .collection("Transfers")
-                            .doc(id)
-                            .collection("Comments")
-                            .add({
-                          "commentText": addOfferController.text,
-                          "CommentedBy": currentUser?.email,
-                          "CommentTime": Timestamp.now(),
-                        });
-                        addOfferController.clear();
-                      },
+                child: IconButton(onPressed: addComment,
                       icon: const Icon(Icons.post_add),
                 )),
             )

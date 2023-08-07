@@ -11,6 +11,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 class _HomeState extends State<Home> {
+  var sunny = false;
   void signout() {
     FirebaseAuth.instance.signOut();
   }
@@ -35,46 +36,51 @@ class _HomeState extends State<Home> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: const Text(
-          'T R A N S P O R T E R',
-          style: TextStyle(
-            fontSize: 13,
-            color: Colors.blue
-          ),),
-      ),
-      drawer: MediaQuery.of(context).size.shortestSide<700? Drawer(
-        child: MyDrawer(),
-      ):null,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
+    
+    return GestureDetector(
+      child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
-        onPressed: createNewTransfer,
-        child: Icon(
-          Icons.add,
-          color: Colors.white.withAlpha(90),
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          elevation: 0,
+          title: Text(
+            'T R A N S P O R T E R',
+            style: TextStyle(
+              fontSize: 13,
+              color: Theme.of(context).colorScheme.secondary
+            ),),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Colors.blue,
-        currentIndex: _selectedIndex,
-        type: BottomNavigationBarType.fixed,
-        onTap: _navigateBottomBar,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: "history"),
-        ],
-      ),
-      body: MediaQuery.of(context).size.shortestSide<700? _children[_selectedIndex]
-      :Row(
-        children: [
-          MyDrawer(), 
-          Expanded(
-            child: _children[_selectedIndex]
-          ),]
-        ));
+        drawer: MediaQuery.of(context).size.shortestSide<700? Drawer(
+          child: MyDrawer(),
+        ):null,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton:MediaQuery.of(context).size.shortestSide<700? FloatingActionButton(
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          onPressed: createNewTransfer,
+          child: Icon(
+            Icons.add,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ):null,
+        bottomNavigationBar: MediaQuery.of(context).size.shortestSide<700? BottomNavigationBar(
+          fixedColor: Theme.of(context).colorScheme.secondary,
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          currentIndex: _selectedIndex,
+          type: BottomNavigationBarType.fixed,
+          onTap: _navigateBottomBar,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
+            BottomNavigationBarItem(icon: Icon(Icons.history), label: "history"),
+          ],
+        ):null,
+        body: MediaQuery.of(context).size.shortestSide<700? _children[_selectedIndex]
+        :Row(
+          children: [
+            MyDrawer(), 
+            Expanded(
+              child: _children[_selectedIndex]
+            ),]
+          )),
+    );
   }
 }

@@ -17,7 +17,7 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.all(5.0),
         child: Expanded(
           child: Column(
@@ -71,21 +71,19 @@ class MyDrawer extends StatelessWidget {
                       DrawButton(
                         text: "Infos", icon: Icons.info, onPressed: () {}, red : false
                       ),
-                      Align(
-                        alignment: const Alignment(0, 1),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 25
-                          ),
-                          child: DrawButton(
-                            text: "LogOut",
-                            icon: Icons.logout,
-                            onPressed: signout,
-                            red: true,
-                          ),
-                        ),
-                      ),
                     ],
+                  ),
+                ),
+              ),
+               Align(
+                alignment: const Alignment(0, 1),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 25),
+                  child: DrawButton(
+                    text: "LogOut",
+                    icon: Icons.logout,
+                    onPressed: signout,
+                    red: true,
                   ),
                 ),
               ),

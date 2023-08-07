@@ -54,39 +54,71 @@ class _PostState extends State<Post> {
     return "00";
   }
 
+  void showOffers(){
+    if(MediaQuery.of(context).size.shortestSide < 600) {
+      showModalBottomSheet<void>(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context){
+          return ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft:Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+              child: Comments(
+                id: widget.postId
+              ),
+          );
+        }
+    );
+    } else {
+      showDialog(
+        context: context, 
+        builder: (BuildContext context){
+          return ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(40),
+              topRight: Radius.circular(40)),
+            child: Comments(id: widget.postId),
+          );
+        }
+      );
+    }
+  }
+
   void showCommentDialog() {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              title: const Text("Add Offer"),
-              content: TextField(
-                controller: _controller,
-              ),
-              actions: [
-                TextButton(
-                  child: const Text("add"),
-                  onPressed: () {
-                    FirebaseFirestore.instance
-                        .collection("Transfers")
-                        .doc(widget.postId)
-                        .collection("Comments")
-                        .add({
-                      "commentText": _controller.text,
-                      "CommentedBy": currentUser.email,
-                      "CommentTime": Timestamp.now()
-                    });
-                    _controller.clear();
-                    Navigator.pop(context);
-                  },
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text("cancel"),
-                )
-              ],
-            ));
+        title: const Text("Add Offer"),
+        content: TextField(
+          controller: _controller,
+        ),
+        actions: [
+          TextButton(
+            child: const Text("add"),
+            onPressed: () {
+              FirebaseFirestore.instance
+                  .collection("Transfers")
+                  .doc(widget.postId)
+                  .collection("Comments")
+                  .add({
+                "commentText": _controller.text,
+                "CommentedBy": currentUser.email,
+                "CommentTime": Timestamp.now()
+              });
+              _controller.clear();
+              Navigator.pop(context);
+            },
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("cancel"),
+          )
+        ],
+      ));
   }
 
   @override
@@ -100,8 +132,14 @@ class _PostState extends State<Post> {
               width: 600,
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
-                color: Colors.grey.withAlpha(20),
+                color: Theme.of(context).colorScheme.background,
                 borderRadius: BorderRadius.circular(5),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black,
+                    blurRadius: 2
+                  )
+                ]
               ),
               child: Column(
                 children: [
@@ -160,7 +198,7 @@ class _PostState extends State<Post> {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey.withAlpha(50),
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Row(
@@ -176,20 +214,21 @@ class _PostState extends State<Post> {
                               children: [
                                 RichText(
                                   text: TextSpan(children: [
-                                    const TextSpan(
+                                    TextSpan(
                                       text: "W e i g h t: ",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontStyle: FontStyle.italic,
-                                        color: Colors.grey,
+                                        color: Theme.of(context).colorScheme.secondary,
                                         fontSize: 15,
                                       ),
                                     ),
                                     TextSpan(
                                       text: widget.weight,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontStyle: FontStyle.italic,
-                                        color: Colors.white,
+                                        
+                                        color: Theme.of(context).colorScheme.secondary,
                                         fontSize: 15,
                                       ),
                                     )
@@ -198,20 +237,20 @@ class _PostState extends State<Post> {
                                 RichText(
                                   text: TextSpan(
                                     children: [
-                                      const TextSpan(
+                                      TextSpan(
                                         text: "O f f e r: ",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontStyle: FontStyle.italic,
-                                          color: Colors.grey,
+                                          color: Theme.of(context).colorScheme.secondary,
                                           fontSize: 15,
                                         ),
                                       ),
                                       TextSpan(
                                         text: widget.price,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontStyle: FontStyle.italic,
-                                          color: Colors.white,
+                                          color: Theme.of(context).colorScheme.secondary,
                                           fontSize: 15,
                                         ),
                                       ),
@@ -222,55 +261,45 @@ class _PostState extends State<Post> {
                             ),
                           ),
                         ),
-                        Container(
-                          height: 35,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withAlpha(30),
-                            borderRadius: BorderRadius.circular(5)
-                          ),
-                          child: MaterialButton(
-                            onPressed: showCommentDialog,
-                            child:const Center(
-                              child: Text(
-                                "Add Offer",
-                              )
-                            ),
-                          )
-                        )
                       ],
                     ),
                   ),
+                  const SizedBox(height: 10,),
                   Row(
                     children: [
-                      Expanded(child: Container(
-                        padding: const EdgeInsets.only(top: 5),
+                      Expanded(
                         child: Container(
-                          color: Colors.blue.withAlpha(20),
-                          child: TextButton(child: const Text('Offers'),onPressed: (){
-                            if(MediaQuery.of(context).size.shortestSide < 600) {
-                              showModalBottomSheet<void>(context: context,backgroundColor: Colors.transparent, builder: (BuildContext context){
-                              return ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                  topLeft:Radius.circular(20),
-                                  topRight: Radius.circular(20),
-                                ),
-                                  child: Comments(
-                                    id: widget.postId
-                                  ),
-                              );
-                            });
-                            } else {
-                              showDialog(context: context, builder: (BuildContext context){
-                                return ClipRRect(
-                                        borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(40),
-                                            topRight: Radius.circular(40)),
-                                        child: Comments(id: widget.postId),
-                                      );
-                              });
-                            }
-                          },),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.secondary,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        padding: const EdgeInsets.only(top: 5),
+                        child: TextButton(
+                          onPressed: showOffers,
+                          child: const Text(
+                            'Offers',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      )),
+                      const SizedBox(width: 5),
+                      Expanded(
+                          child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.secondary,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        padding: const EdgeInsets.only(top: 5),
+                        child: TextButton(
+                          onPressed: showCommentDialog,
+                          child: const Text(
+                            'Add Offer',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       )),
                     ],
@@ -287,13 +316,19 @@ class _PostState extends State<Post> {
             ),
           ).animate().fade(),
           const Break(),
-          widget.last ? Container(
-            height: 100,
-            width: 500,
-            color:Colors.grey.withAlpha(20),
-            child: const Center(
-              child: Text("End Of Transfers")
-            )) 
+          const SizedBox(height: 10,),
+          widget.last ? Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 30,
+                  color:Theme.of(context).colorScheme.primary,
+                  child: const Center(
+                    child: Text("End Of Transfers")
+                  )),
+              ),
+            ],
+          ) 
             : const SizedBox(),
         ],
       );
