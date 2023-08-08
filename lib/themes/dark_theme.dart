@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   colorScheme: ColorScheme.dark(
-    background: Colors.black,
-    primary: Colors.grey[900]!,
-    secondary: Colors.pink[400]!,
+    background: Colors.grey[900]!,
+    primary: Colors.grey[800]!,
+    secondary: Colors.pink[500]!,
   ),
   drawerTheme: DrawerThemeData(backgroundColor: Colors.grey[900]!),
   appBarTheme: AppBarTheme(

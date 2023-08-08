@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:social_transport/components/comments_field.dart';
 import 'package:social_transport/components/comment_texting_field.dart';
 
-class Comments extends StatelessWidget {
+class Comments extends StatefulWidget {
   final String id;
   const Comments({
     super.key,
@@ -10,7 +10,19 @@ class Comments extends StatelessWidget {
   });
 
   @override
+  State<Comments> createState() => _CommentsState();
+}
+class _CommentsState extends State<Comments> {
+  // ignore: prefer_typing_uninitialized_variables
+  var commentTextingField;
+  @override
+  void initState() {
+    super.initState();
+    commentTextingField = TextingBar(id: widget.id);
+  }
+  @override
   Widget build(BuildContext context) {
+    
     return GestureDetector(
       onTap: (){Navigator.pop(context);},
       child: Scaffold(
@@ -27,6 +39,7 @@ class Comments extends StatelessWidget {
               width: 500,
               child: Column(
                 children: [
+                  const Text("offers"),
                   SizedBox(
                       height: 20,
                       child: Center(
@@ -40,8 +53,12 @@ class Comments extends StatelessWidget {
                         ),
                       ),
                     ),
-                  Expanded(child: CommentField(id: id)),
-                  TextingBar(id: id)
+                  
+                  Expanded(child: CommentField(id: widget.id)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal:8.0),
+                    child: commentTextingField,
+                  )
                 ],
               ),
             ),

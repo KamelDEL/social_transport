@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:social_transport/components/break.dart';
+import 'package:social_transport/components/comment_texting_field.dart';
 
 import 'comments.dart';
 
@@ -33,7 +34,9 @@ class Post extends StatefulWidget {
 
 class _PostState extends State<Post> {
   final currentUser = FirebaseAuth.instance.currentUser!;
+
   final _controller = TextEditingController();
+
   String timerSeconds(time){
     if(time >= 0){
       if (time % 60 < 10) {
@@ -120,6 +123,13 @@ class _PostState extends State<Post> {
         ],
       ));
   }
+  // ignore: prefer_typing_uninitialized_variables
+  var addCommentTextField;
+  @override
+  void initState() {
+    super.initState();
+    addCommentTextField = TextingBar(id: widget.postId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -162,6 +172,7 @@ class _PostState extends State<Post> {
                             ),
                           ],
                         ),
+                        //post description
                         Row(
                           children: [
                             Expanded(
@@ -201,6 +212,7 @@ class _PostState extends State<Post> {
                       color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(5),
                     ),
+                    //weight height
                     child: Row(
                       children: [
                         Expanded(
@@ -231,7 +243,7 @@ class _PostState extends State<Post> {
                                         color: Theme.of(context).colorScheme.secondary,
                                         fontSize: 15,
                                       ),
-                                    )
+                                    ),
                                   ]),
                                 ),
                                 RichText(
@@ -265,50 +277,26 @@ class _PostState extends State<Post> {
                     ),
                   ),
                   const SizedBox(height: 10,),
+                  addCommentTextField,
+                  //offers add offer
                   Row(
                     children: [
                       Expanded(
                         child: Container(
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.secondary,
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(25),
                         ),
-                        padding: const EdgeInsets.only(top: 5),
                         child: TextButton(
                           onPressed: showOffers,
                           child: const Text(
-                            'Offers',
+                            'See Offers',
                             style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
                         ),
                       )),
-                      const SizedBox(width: 5),
-                      Expanded(
-                          child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.secondary,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        padding: const EdgeInsets.only(top: 5),
-                        child: TextButton(
-                          onPressed: showCommentDialog,
-                          child: const Text(
-                            'Add Offer',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      )),
-                    ],
-                  ),
-                  const Row(
-                    children: [
-                      SizedBox(
-                        width: 30,
-                      ),
                     ],
                   ),
                 ],
@@ -316,7 +304,7 @@ class _PostState extends State<Post> {
             ),
           ).animate().fade(),
           const Break(),
-          const SizedBox(height: 10,),
+          const SizedBox(height: 15,),
           widget.last ? Row(
             children: [
               Expanded(
@@ -329,7 +317,7 @@ class _PostState extends State<Post> {
               ),
             ],
           ) 
-            : const SizedBox(),
+          : const SizedBox(),
         ],
       );
     } else{

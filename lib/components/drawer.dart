@@ -16,81 +16,73 @@ class MyDrawer extends StatelessWidget {
     }
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: const EdgeInsets.all(5.0),
-        child: Expanded(
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
+    return Expanded(
+        child: SafeArea(
+          child: Container(
+            color: Theme.of(context).colorScheme.background,
+            child: ListView(
+              children: [
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Text("T R A N S P O R T E R"),
+                  ],
+                ),
+                const Break(),
+                SizedBox(
+                  height: 150,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 50,
-                          ),
-                          Text("T R A N S P O R T E R"),
-                        ],
+                      const Icon(
+                        Icons.face,
+                        size: 50,
                       ),
-                      const Break(),
-                      SizedBox(
-                        height: 150,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.face,
-                              size: 50,
-                            ),
-                            Text(
-                              "${current_user!.email}",
-                              style: const TextStyle(
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
+                      Text(
+                        "${current_user!.email}",
+                        style: const TextStyle(
+                          fontSize: 15,
                         ),
-                      ),
-                      const Break(),
-                      DrawButton(
-                        text: "Profile", 
-                        icon: Icons.person, 
-                        onPressed: (){},
-                        red: false
-                      ),
-                      DrawButton(
-                        text: "Settings",
-                        icon: Icons.settings,
-                        onPressed: (){},
-                        red: false
-                      ),
-                      DrawButton(
-                        text: "Infos", icon: Icons.info, onPressed: () {}, red : false
                       ),
                     ],
                   ),
                 ),
-              ),
-               Align(
-                alignment: const Alignment(0, 1),
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 25),
-                  child: DrawButton(
-                    text: "LogOut",
-                    icon: Icons.logout,
-                    onPressed: signout,
-                    red: true,
+                const Break(),
+                DrawButton(
+                  text: "Profile", 
+                  icon: Icons.person, 
+                  onPressed: (){},
+                  red: false
+                ),
+                DrawButton(
+                  text: "Settings",
+                  icon: Icons.settings,
+                  onPressed: (){},
+                  red: false
+                ),
+                DrawButton(
+                  text: "Infos", icon: Icons.info, onPressed: () {}, red : false
+                ),
+                Align(
+                  alignment: const Alignment(0, 1),
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 25),
+                    child: DrawButton(
+                      text: "LogOut",
+                      icon: Icons.logout,
+                      onPressed: signout,
+                      red: true,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
     );
   }
 }

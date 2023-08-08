@@ -8,8 +8,6 @@ class TextingBar extends StatelessWidget {
   const TextingBar({
     required this.id,
     super.key});
-  
-  
 
   @override
   Widget build(BuildContext context) {
@@ -28,38 +26,35 @@ class TextingBar extends StatelessWidget {
       addOfferController.clear();
     }
 
-    return Container(
-      alignment: const Alignment(0, 1),
-      height: 90,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: MyTextField(
-                controller: addOfferController,
-                hintText: 'add an offer',
-                obscureText: false,
-              )
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 5,bottom: 15),
-              child: Container(
-                width: 45,
-                height: 45,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: IconButton(onPressed: addComment,
-                      icon: const Icon(Icons.post_add),
-                )),
-            )
-          ],
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: MyTextField(
+            controller: addOfferController,
+            hintText: 'add an offer',
+            obscureText: false,
+            function: addComment,
+          )
         ),
-      ),
+        const SizedBox(width: 5,),
+        Align(
+          alignment: const Alignment(0, 1),
+          child: Container(
+            width: 45,
+            height: 45,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondary,
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: Center(
+              child: IconButton(onPressed: addOfferController.text == ""? addComment:(){},
+                    icon: const Icon(Icons.post_add,color: Colors.white,),
+              ),
+            )),
+        )
+      ],
     );
   }
 }

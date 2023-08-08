@@ -5,12 +5,14 @@ class MyTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
+  final VoidCallback? function;
 
   const MyTextField({
     super.key,
     required this.controller,
     required this.hintText,
-    required this.obscureText
+    required this.obscureText,
+    this.function
   });
 
   @override
@@ -19,25 +21,32 @@ class MyTextField extends StatelessWidget {
       width: 500,
       child: Column(
         children: [
-        const SizedBox(height: 10,),
+        const SizedBox(height: 5,),
           TextField(
             controller: controller,
             obscureText: obscureText,
             decoration: InputDecoration(
+              border: const UnderlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
               enabledBorder: const  OutlineInputBorder(
-                borderSide: BorderSide(),
+                borderSide: BorderSide(
+                  color: Colors.grey,
+                ),
               ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.secondary
+                ),
               ),
-              fillColor: Colors.grey[400]!,
+              fillColor: Colors.grey[500]!,
               hintText: hintText,
               hintStyle: TextStyle(
-                color:Colors.grey[400]!,
-              )
+                color:Colors.grey[500]!,
+              ),
             ),
           ),
-          const SizedBox(height: 10,),
+          const SizedBox(height: 5,),
         ],
       ),
     );
