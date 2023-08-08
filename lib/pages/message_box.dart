@@ -20,7 +20,7 @@ class _MessageBoxState extends State<MessageBox> {
                 extentRatio:
                     MediaQuery.of(context).size.width > 500 ? 0.4 : 0.7,
                 motion: const BehindMotion(),
-                children: [
+                children: const [
                     UsersMsgs(),
                   ])
             : null,
