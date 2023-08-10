@@ -25,6 +25,7 @@ class _UsersMsgsState extends State<UsersMsgs> {
           child: ListView(
             children: const [
               SizedBox(height: 20,),
+              Center(child: Text("the DMs")),
               UserMsgId(),
               UserMsgId(),
               UserMsgId(),

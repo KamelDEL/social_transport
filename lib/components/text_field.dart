@@ -5,7 +5,7 @@ class MyTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
-  final VoidCallback? function;
+  final void function;
 
   const MyTextField({
     super.key,
@@ -21,16 +21,27 @@ class MyTextField extends StatelessWidget {
       width: 500,
       child: Column(
         children: [
-        const SizedBox(height: 5,),
-          TextField(
+          TextFormField(
+            keyboardType: hintText == "add an offer"? const TextInputType.numberWithOptions(
+              decimal: true,
+            ):null,
+            validator:hintText == "add an offer"? (string){
+              final number = num.tryParse(string!);
+              if( number == null ) {
+                return "";
+              }
+              return null;
+            }:null,
             controller: controller,
             obscureText: obscureText,
+            onFieldSubmitted:(value)=>function, 
             decoration: InputDecoration(
-              border: const UnderlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(hintText=="add an Offer"? 50:10),
               ),
-              enabledBorder: const  OutlineInputBorder(
-                borderSide: BorderSide(
+              enabledBorder:  OutlineInputBorder(
+                borderRadius: BorderRadius.circular(hintText == "add an Offer" ? 50 : 10),
+                borderSide: const BorderSide(
                   color: Colors.grey,
                 ),
               ),
@@ -40,7 +51,12 @@ class MyTextField extends StatelessWidget {
                 ),
               ),
               fillColor: Colors.grey[500]!,
+              suffix: hintText == "add an offer"? const Text("DA") : null,
               hintText: hintText,
+              labelText: hintText,
+              labelStyle: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground
+              ),
               hintStyle: TextStyle(
                 color:Colors.grey[500]!,
               ),

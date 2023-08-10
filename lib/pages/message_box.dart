@@ -27,7 +27,7 @@ class _MessageBoxState extends State<MessageBox> {
         endActionPane: MediaQuery.of(context).size.width < 600
             ? ActionPane(
                 extentRatio:
-                    MediaQuery.of(context).size.width < 500 ? 0.7 : 0.4,
+                    MediaQuery.of(context).size.width < 500 ? 0.7 : 0.4, 
                 motion: const BehindMotion(),
                 children: const [
                     UsersMsgs(),

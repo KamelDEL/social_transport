@@ -39,6 +39,7 @@ class _CommentsState extends State<Comments> {
               width: 500,
               child: Column(
                 children: [
+                  const SizedBox(height: 10),
                   const Text("offers"),
                   SizedBox(
                       height: 20,
