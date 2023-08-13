@@ -21,7 +21,10 @@ class _UsersMsgsState extends State<UsersMsgs> {
     return Expanded(
       child: SafeArea(
         child: Container(
-          color: Theme.of(context).colorScheme.background,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+            borderRadius: BorderRadius.circular(10)
+          ),
           child: ListView(
             children: const [
               SizedBox(height: 20,),

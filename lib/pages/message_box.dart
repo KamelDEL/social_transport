@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:social_transport/components/contact_texting_field.dart';
+import 'package:social_transport/components/msg_box.dart';
 import 'package:social_transport/components/users_msg.dart';
 
 class MessageBox extends StatefulWidget {
@@ -24,23 +25,18 @@ class _MessageBoxState extends State<MessageBox> {
                     UsersMsgs(),
                   ])
             : null,
-        endActionPane: MediaQuery.of(context).size.width < 600
-            ? ActionPane(
-                extentRatio:
-                    MediaQuery.of(context).size.width < 500 ? 0.7 : 0.4, 
-                motion: const BehindMotion(),
-                children: const [
-                    UsersMsgs(),
-                  ])
-            : null,
         child: Scaffold(
           appBar: AppBar(
-            automaticallyImplyLeading: false,
             elevation: 0,
             title: Row(
               children: [
                 const Icon(Icons.person),
-                Text("user n1",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
+                Text(
+                  "user n1",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary
+                  ),
+                ),
             ]),
             actions: [
               IconButton(
@@ -50,12 +46,20 @@ class _MessageBoxState extends State<MessageBox> {
             ],
           ),
           body: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
+            padding:const EdgeInsets.all(10.0),
+            child: Row(
               children: [
-                Expanded(child: Container()),
-                const ContactTextingField()
-            ],),
+                MediaQuery.of(context).size.width > 910? const UsersMsgs():const SizedBox() ,
+                const Expanded(
+                  flex: 4,
+                  child: Column(
+                    children: [
+                      Expanded(child: MsgBox()),
+                      ContactTextingField(receiverId: ""),
+                  ],),
+                ),
+              ],
+            ),
           ),
         ),
       ),

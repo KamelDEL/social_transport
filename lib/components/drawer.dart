@@ -17,8 +17,10 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
+      flex: 1,
         child: SafeArea(
           child: Container(
+            width: 300,
             color: Theme.of(context).colorScheme.background,
             child: ListView(
               children: [

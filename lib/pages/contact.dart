@@ -14,7 +14,7 @@ class Contact extends StatelessWidget {
       body: const Column(
         children: [
           MsgBox(),
-          ContactTextingField(),
+          ContactTextingField(receiverId: '',),
         ],
       )
     );

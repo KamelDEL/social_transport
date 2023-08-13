@@ -6,7 +6,7 @@ class Break extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 1,
-      width: 250,
+      width: 50,
       child: Container(
         color: Theme.of(context).colorScheme.secondary,
       )

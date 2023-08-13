@@ -58,7 +58,7 @@ class _PostState extends State<Post> {
   }
 
   void showOffers(){
-    if(MediaQuery.of(context).size.shortestSide < 600) {
+    if(MediaQuery.of(context).size.shortestSide < 500) {
       showModalBottomSheet<void>(
         context: context,
         backgroundColor: Colors.transparent,
@@ -139,7 +139,7 @@ class _PostState extends State<Post> {
           Padding(
             padding: const EdgeInsets.only(bottom: 10,left:10,right: 17, top: 10),
             child: Container(
-              width: 600,
+              width: 500,
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.background,
